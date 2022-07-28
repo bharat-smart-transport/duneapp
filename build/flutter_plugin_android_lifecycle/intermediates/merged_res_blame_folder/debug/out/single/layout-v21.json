@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/home/hits/Desktop/duneapp/build/flutter_plugin_android_lifecycle/intermediates/res/merged/debug/layout-v21/notification_action.xml",
+        "source": "/home/hits/.gradle/caches/transforms-2/files-2.1/b420357e31c06f1dad521b24831810f1/core-1.6.0/res/layout-v21/notification_action.xml"
+    },
+    {
+        "merged": "/home/hits/Desktop/duneapp/build/flutter_plugin_android_lifecycle/intermediates/res/merged/debug/layout-v21/notification_template_icon_group.xml",
+        "source": "/home/hits/.gradle/caches/transforms-2/files-2.1/b420357e31c06f1dad521b24831810f1/core-1.6.0/res/layout-v21/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/home/hits/Desktop/duneapp/build/flutter_plugin_android_lifecycle/intermediates/res/merged/debug/layout-v21/notification_action_tombstone.xml",
+        "source": "/home/hits/.gradle/caches/transforms-2/files-2.1/b420357e31c06f1dad521b24831810f1/core-1.6.0/res/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/home/hits/Desktop/duneapp/build/flutter_plugin_android_lifecycle/intermediates/res/merged/debug/layout-v21/notification_template_custom_big.xml",
+        "source": "/home/hits/.gradle/caches/transforms-2/files-2.1/b420357e31c06f1dad521b24831810f1/core-1.6.0/res/layout-v21/notification_template_custom_big.xml"
+    }
+]

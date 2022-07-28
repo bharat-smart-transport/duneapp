@@ -1,11 +1,7 @@
-import 'package:dune/Pages/Auth/broker.dart';
-import 'package:dune/Pages/Auth/pick_location.dart';
-import 'package:dune/Pages/Wallet/add_moeny.dart';
 import 'package:dune/Provider/main_provider.dart';
 import 'package:dune/prefs/shared_prefs.dart';
 import 'package:dune/route_gen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -21,12 +17,12 @@ class MyApp extends StatefulWidget {
 
   @override
   State<MyApp> createState() => _MyAppState();
+  // ignore: library_private_types_in_public_api
   static _MyAppState of(BuildContext context) =>
       context.findAncestorStateOfType<_MyAppState>()!;
 }
 
-class _MyAppState extends State<MyApp> {
-  
+class _MyAppState extends State<MyApp> {  
 
   Locale? _locale;
 
@@ -38,8 +34,6 @@ class _MyAppState extends State<MyApp> {
 
   void setAccessToken() async {
     String lang = await SharedPrefs.getData("lang");
-    print("------------ Lang");
-    print(lang);
     Locale forcedLocale = lang.isNotEmpty ? Locale(lang) : const Locale("hi");
     setState(() {
       _locale = forcedLocale;

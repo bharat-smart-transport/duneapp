@@ -611,34 +611,48 @@ class MainProvider extends ChangeNotifier {
   }
 
   Future<dynamic> loadVehicle(
-    String id,
-    String currentRouteFrom,
-    String currentRouteTo,
-    String dealStatus,
-    String askPrice,
-  ) async {
+      String id,
+      String currentRouteFrom,
+      String currentRouteTo,
+      String dealStatus,
+      String askPrice,
+      String billLink,
+      String materialLink) async {
     String token = await SharedPrefs.getData('token');
-    print(id);
-    var response = await http.post(
-      //edit
-      Uri.parse('$baseUrl/vehicle/edit'),
-      body: json.encode(
-        {
-          "id": id,
-          "currentRouteFrom": currentRouteFrom,
-          "currentRouteTo": currentRouteTo,
-          "askPrice": askPrice,
-          "dealStatus": dealStatus,
-        },
+    print(token);
+    var headersList = {
+      'Accept': '*/*',
+      'Authorization': token,
+    };
+    var url = Uri.parse('$baseUrl/vehicle/edit');
+    Map<String, String> body = {
+      "id": id,
+      "currentRouteFrom": currentRouteFrom,
+      "currentRouteTo": currentRouteTo,
+      "askPrice": askPrice,
+      "dealStatus": dealStatus,
+    };
+    var req = http.MultipartRequest('POST', url);
+    req.headers.addAll(headersList);
+    req.files.add(
+      await http.MultipartFile.fromPath(
+        'bill',
+        billLink,
       ),
-      headers: {
-        'Authorization': token,
-        'Content-Type': 'application/json',
-      },
     );
-    dynamic res = jsonDecode(response.body);
-    print(res);
-    if (response.statusCode == 200) {
+    materialLink.isNotEmpty
+        ? req.files.add(
+            await http.MultipartFile.fromPath(
+              'materialPhoto',
+              materialLink,
+            ),
+          )
+        : null;
+    req.fields.addAll(body);
+    var res = await req.send();
+    final resBody = await res.stream.bytesToString();
+    var response = jsonDecode(resBody);
+    if (res.statusCode == 200) {
       getVehicle(token);
       userDetails!.data.userType == "DRIVER"
           ? getVehicleOnlyDriver(loginModel!.token)
@@ -777,8 +791,3 @@ class MainProvider extends ChangeNotifier {
     }
   }
 }
-
-
-
-// dharmkataAddress = jsonEncode({'name':"Mohak", "address": "sdflsmdf"}).toString();
-// shopAddress

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BlockButtonWidget extends StatelessWidget {
-  BlockButtonWidget(
+  const BlockButtonWidget(
       {Key? key,
       required this.color,
       required this.text,
@@ -21,22 +21,22 @@ class BlockButtonWidget extends StatelessWidget {
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
-              color: this.color.withOpacity(0.4),
+              color: color.withOpacity(0.4),
               blurRadius: 40,
-              offset: Offset(0, 15)),
+              offset: const Offset(0, 15)),
           BoxShadow(
-              color: this.color.withOpacity(0.4),
+              color: color.withOpacity(0.4),
               blurRadius: 13,
-              offset: Offset(0, 3))
+              offset: const Offset(0, 3))
         ],
-        borderRadius: BorderRadius.all(Radius.circular(100)),
+        borderRadius: const BorderRadius.all(Radius.circular(100)),
       ),
       child: FlatButton(
-        onPressed: this.onPressed,
-        padding: EdgeInsets.symmetric(horizontal: 46, vertical: 14),
-        color: this.color,
-        shape: StadiumBorder(),
-        child: this.text,
+        onPressed: onPressed,
+        padding: const EdgeInsets.symmetric(horizontal: 46, vertical: 14),
+        color: color,
+        shape: const StadiumBorder(),
+        child: text,
       ),
     );
   }

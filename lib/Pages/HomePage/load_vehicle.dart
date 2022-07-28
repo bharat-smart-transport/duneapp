@@ -1,13 +1,25 @@
+import 'dart:convert';
+
 import 'package:dune/Pages/HomePage/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import 'package:dune/Services/essentials.dart';
 import 'package:dune/config.dart';
 
 import '../../Provider/main_provider.dart';
+import 'dart:io' as Io;
+
+PickedFile? materialImage;
+String materiallink = "";
+String selfie64 = "";
+
+PickedFile? billPhoto;
+String billlink = "";
+String bill64 = "";
 
 class LoadVehicle extends StatefulWidget {
   String? id;
@@ -48,8 +60,27 @@ class _LoadVehicleState extends State<LoadVehicle> {
     driverNumber.dispose();
   }
 
+  void _openCamera(
+      BuildContext context, PickedFile pickedFilee, String imagelink) async {
+    // ignore: deprecated_member_use
+    final pickedFile = await ImagePicker().getImage(
+      source: ImageSource.gallery,
+      imageQuality: 10,
+    );
+    setState(() {
+      pickedFilee = pickedFile!;
+    });
+    print("imageFile");
+    imagelink = pickedFile!.path.toString();
+    final bytes = Io.File(imagelink).readAsBytesSync();
+    selfie64 = base64Encode(bytes);
+    print(selfie64);
+  }
+
   @override
   void initState() {
+    billPhoto = null;
+    materialImage = null;
     print(Provider.of<MainProvider>(context, listen: false)
         .specificVehicle!
         .data
@@ -425,6 +456,41 @@ class _LoadVehicleState extends State<LoadVehicle> {
                 const SizedBox(
                   height: 15,
                 ),
+
+                ListTile(
+                  leading: materialImage == null
+                      ? FlatButton(
+                          color: Colors.grey,
+                          onPressed: () {
+                            _openCamera(context, materialImage!, materiallink);
+                          },
+                          child: Text("Choose File"),
+                        )
+                      : FlatButton(
+                          onPressed: () {},
+                          color: Colors.white,
+                          child: Text("Choose File"),
+                        ),
+                  title: materialImage == null
+                      ? Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 5),
+                          color: Colors.white,
+                          child: Text("No File Chosen"))
+                      : Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 5),
+                          color: Colors.white,
+                          child: Text(
+                            materiallink,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                ),
+                Divider(
+                  color: Essentials.hexToColor("#707070"),
+                  thickness: 0.8,
+                ),
                 Material(
                   color: Colors.white,
                   // elevation: 1.0,
@@ -560,6 +626,44 @@ class _LoadVehicleState extends State<LoadVehicle> {
                   controlAffinity:
                       ListTileControlAffinity.leading, //  <-- leading Checkbox
                 ),
+                const SizedBox(
+                  height: 15,
+                ),
+
+                ListTile(
+                  leading: billPhoto == null
+                      ? FlatButton(
+                          color: Colors.grey,
+                          onPressed: () {
+                            _openCamera(context, billPhoto!, billlink);
+                          },
+                          child: Text("Choose File"),
+                        )
+                      : FlatButton(
+                          onPressed: () {},
+                          color: Colors.white,
+                          child: Text("Choose File"),
+                        ),
+                  title: materialImage == null
+                      ? Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 5),
+                          color: Colors.white,
+                          child: Text("No File Chosen"))
+                      : Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 5),
+                          color: Colors.white,
+                          child: Text(
+                            billlink,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                ),
+                Divider(
+                  color: Essentials.hexToColor("#707070"),
+                  thickness: 0.8,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -670,6 +774,30 @@ class _LoadVehicleState extends State<LoadVehicle> {
                                 ),
                               ),
                             );
+                          } else if (billlink.isEmpty) {
+                            _scaffoldKey.currentState
+                                // ignore: deprecated_member_use
+                                ?.showSnackBar(
+                              SnackBar(
+                                duration: const Duration(seconds: 5),
+                                content: Text(
+                                  AppLocalizations.of(context)!
+                                      .enter_bill_photo,
+                                ),
+                              ),
+                            );
+                          } else if (materiallink.isEmpty) {
+                            _scaffoldKey.currentState
+                                // ignore: deprecated_member_use
+                                ?.showSnackBar(
+                              SnackBar(
+                                duration: const Duration(seconds: 5),
+                                content: Text(
+                                  AppLocalizations.of(context)!
+                                      .enter_material_photo,
+                                ),
+                              ),
+                            );
                           } else {
                             setState(() {
                               loading = true;
@@ -679,12 +807,13 @@ class _LoadVehicleState extends State<LoadVehicle> {
                                     context,
                                     listen: false)
                                 .loadVehicle(
-                              widget.id.toString(),
-                              currentRouteFrom.toString(),
-                              currentRouteTo.toString(),
-                              "LOADED",
-                              askPrice.text.toString(),
-                            );
+                                    widget.id.toString(),
+                                    currentRouteFrom.toString(),
+                                    currentRouteTo.toString(),
+                                    "LOADED",
+                                    askPrice.text.toString(),
+                                    billlink,
+                                    materiallink);
                             setState(() {
                               loading = false;
                             });

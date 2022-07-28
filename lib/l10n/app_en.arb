@@ -4,6 +4,8 @@
     "continuee": "continue",
     "select_owner": "Select Owner",
     "select_driver": "Select Driver",
+    "enter_bill_photo": "Enter Bill Photo",
+    "enter_material_photo": "Enter Material Photo",
     "set_usertype": "Enter User Type",
     "by_continuing_you_agree_to": "By continuing, you agree to",
     "terms_and_condition": "Terms and Condition",

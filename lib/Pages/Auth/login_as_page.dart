@@ -23,17 +23,17 @@ class LoginAsPage extends StatefulWidget {
 class _LoginAsPageState extends State<LoginAsPage> {
   int selectLang = -1;
   List<String> userType = [
+    'Owner',
+    'Driver',
     'Broker',
     'Shop_keeper',
-    'Driver',
-    'Owner',
   ];
 
   List<String> userImage = [
-    'assets/registerasicons/Group 5313.png',
-    'assets/registerasicons/Group 5315.png',
+    'assets/registerasicons/Group 5323.png',
     'assets/registerasicons/Group 5320.png',
-    'assets/registerasicons/Group 5323.png'
+    'assets/registerasicons/Group 5313.png',
+    'assets/registerasicons/Group 5315.png'
   ];
 
   String setUserType = "";
