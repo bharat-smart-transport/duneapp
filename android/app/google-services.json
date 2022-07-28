@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "354555705882",
+    "project_id": "duneapp-3900f",
+    "storage_bucket": "duneapp-3900f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354555705882:android:324032db12b1703be3efa3",
+        "android_client_info": {
+          "package_name": "com.example.dune"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "354555705882-bivd3ssreo54evuouj3qb9153pt4k5n1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dune",
+            "certificate_hash": "604db8f09925012e35831657f52312e72e901a3c"
+          }
+        },
+        {
+          "client_id": "354555705882-ift9bp167pnnrg60bolta84jjjkoj5oq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4yuqPMpFikqcsVEHEj25xYTxmUOxXZ3g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "354555705882-ift9bp167pnnrg60bolta84jjjkoj5oq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
